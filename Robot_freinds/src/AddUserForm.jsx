@@ -1,6 +1,11 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { closeForm } from "./userSlice";
 
-export default function AddUserForm({ addUser, onClose, users }) {
+export default function AddUserForm({ addUser }) {
+  const users = useSelector((state) => state.users.users);
+  const dispatch = useDispatch();
+
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -23,13 +28,13 @@ export default function AddUserForm({ addUser, onClose, users }) {
       pic: `https://robohash.org/${username}`,
     };
     addUser(newUser);
-    onClose();
+    dispatch(closeForm());
   };
 
   return (
     <div className="Form">
       <div className="FormContent">
-        <span className="closeButton" onClick={onClose}>
+        <span className="closeButton" onClick={() => dispatch(closeForm())}>
           &times;
         </span>
         <h2>Add New User</h2>
