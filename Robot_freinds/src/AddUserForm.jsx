@@ -39,6 +39,7 @@ export default function AddUserForm({ addUser }) {
         </span>
         <h2>Add New User</h2>
         <form onSubmit={handleSubmit} className="addUserForm">
+          <label></label> 
           <input
             type="text"
             value={name}
