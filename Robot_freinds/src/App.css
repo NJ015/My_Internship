@@ -109,7 +109,7 @@
 
 .FormContent {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -137,6 +137,12 @@
   align-items: center;
 }
 
+.addUserForm label {
+  display: block;
+  text-align: left;
+}
+
+
 .addUserForm input {
   margin: 5px;
   padding: 10px;
@@ -159,4 +165,10 @@
 
 .addUserForm button:hover {
   background-color: #09a3a0;
+}
+
+
+.error{
+  color: red;
+  font-size: 0.8rem;
 }
