@@ -83,7 +83,7 @@
   text-align: center;
 }
 
-.flexRow{
+.flexRow {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -135,6 +135,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
 }
 
 .addUserForm label {
@@ -149,7 +150,8 @@
   font-size: 1em;
   border-radius: 8px;
   border: 1px solid #ccc;
-  width: 80%;
+  /* width: 90%; */
+  
 }
 
 .addUserForm button {
@@ -168,7 +170,26 @@
 }
 
 
-.error{
+.error {
   color: red;
   font-size: 0.8rem;
+  margin-left: 5px;
+  padding-left: 10px;
+  text-align: left;
+  display: block;
+}
+
+
+.txtin {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+}
+
+label {
+  margin-left: 5px;
+  padding-left: 10px;
 }

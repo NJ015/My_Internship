@@ -7,13 +7,13 @@ import * as Yup from "yup";
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
-    <>
+    <div className="txtin">
       <label htmlFor={props.id || props.name}>{label}</label>
       <input className="text-input" {...field} {...props} />
       {meta.touched && meta.error ? (
         <div className="error">{meta.error}</div>
       ) : null}
-    </>
+    </div>
   );
 };
 
@@ -63,21 +63,26 @@ export default function AddUserForm({ addUser }) {
       validationSchema={Yup.object({
         name: Yup.string()
           .max(40, "Must be 40 characters or less")
-          .matches(/^([a-zA-Z]+\s[a-zA-Z]+|[a-zA-Z]+)$/, "Name can only contain letters")
+          .matches(
+            /^(([a-zA-Z]+\s[a-zA-Z]+)+|[a-zA-Z]+)$/,
+            "Name can only contain letters"
+          )
           .required("Required"),
         username: Yup.string()
-          .matches(/.*[a-zA-Z].*/, "Username should have at leat 1 letter")
+          .matches(/.*[a-zA-Z].*/, "Username should have at least 1 letter")
           .required("Required"),
         email: Yup.string().email("Invalid email address").required("Required"),
         phone: Yup.string()
-          .matches(/^\+\d{3} \d{7,10}$/, "Phone number is not valid")
+          .matches(/^(\d+)$/, "Phone number is not valid")
           .required("Required"),
-        street: Yup.string()
-          .matches(/^[a-zA-Z]+$/, "Street can only contain letters")
-          .required("Required"),
-        city: Yup.string()
-          .matches(/^[a-zA-Z]+$/, "City can only contain letters")
-          .required("Required"),
+        address: Yup.object({
+          street: Yup.string()
+            .matches(/^[a-zA-Z]+$/, "Street can only contain letters")
+            .required("Required"),
+          city: Yup.string()
+            .matches(/^[a-zA-Z]+$/, "City can only contain letters")
+            .required("Required"),
+        }),
       })}
       onSubmit={(values, { setSubmitting }) => {
         const newUser = {
@@ -86,12 +91,24 @@ export default function AddUserForm({ addUser }) {
           username: values.username,
           email: values.email,
           address: {
-            street: values.street,
-            city: values.city,
+            street: values.address.street,
+            city: values.address.city,
           },
           phone: values.phone,
           pic: `https://robohash.org/${values.username}`,
         };
+        //////////////////////////////////////
+        // fetch("https://jsonplaceholder.typicode.com/posts", {
+        //   method: "POST",
+        //   body: JSON.stringify(newUser),
+        //   headers: {
+        //     "Content-type": "application/json; charset=UTF-8",
+        //   },
+        // })
+        //   .then((response) => response.json())
+        //   .then((json) => console.log(json))
+        //   .catch((error) => console.error("Error:", error));
+        ///////////////////////////////////////
         addUser(newUser);
         dispatch(closeForm());
         setSubmitting(false);
@@ -124,13 +141,13 @@ export default function AddUserForm({ addUser }) {
             />
             <MyTextInput
               label="Street"
-              name="street"
+              name="address.street"
               type="text"
               placeholder="Elm"
             />
             <MyTextInput
               label="City"
-              name="city"
+              name="address.city"
               type="text"
               placeholder="Springfield"
             />
@@ -138,9 +155,8 @@ export default function AddUserForm({ addUser }) {
               label="Phone"
               name="phone"
               type="text"
-              placeholder="+123 4567890"
+              placeholder="1234567890"
             />
-
             <button type="submit">Add User</button>
           </Form>
         </div>

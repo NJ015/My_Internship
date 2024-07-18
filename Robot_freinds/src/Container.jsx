@@ -1,20 +1,34 @@
 import SearchBar from "./Searchbar";
 import AddUserForm from "./AddUserForm";
 import Robot from "./Robot";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser, openForm, closeForm } from "./userSlice";
+import { addUser, setUsers, openForm, closeForm } from "./userSlice";
 
 export default function Container() {
+  const dispatch = useDispatch();
+  ////////////////////////
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((users) => {
+        const updatedUsers = users.map((user) => ({
+          ...user,
+          pic: `https://robohash.org/${user.username}`,
+        }));
+        dispatch(setUsers(updatedUsers));
+      });
+  }, [dispatch]);
+  /////////////////////////
   const users = useSelector((state) => state.users.users);
   const isOpen = useSelector((state) => state.users.isOpen);
-  const dispatch = useDispatch();
+
   const [filterText, setFilterText] = useState("");
   // const [isOpen, setIsOpen] = useState(false);
 
   const handleAddUser = (newUser) => {
     dispatch(addUser(newUser));
-    dispatch((closeForm()));
+    dispatch(closeForm());
   };
 
   const filteredUsers = users.filter((user) =>
