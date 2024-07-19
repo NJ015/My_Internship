@@ -62,12 +62,12 @@ const userSlice = createSlice({
     setUsers: (state, action) => {
       state.users = action.payload;
     },
-    // editUser: (state) => {
-    //   const i = state.users.findIndex((user) => user.id === action.payload.id)
-    //   if (i !== -1) {
-    //     state.users[i] = action.payload
-    //   }
-    // }
+    editUser: (state) => {
+      const i = state.users.findIndex((user) => user.id === action.payload.id)
+      if (i !== -1) {
+        state.users[i] = action.payload
+      }
+    }
   },
 });
 

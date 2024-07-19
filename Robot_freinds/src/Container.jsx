@@ -9,7 +9,7 @@ export default function Container() {
   const dispatch = useDispatch();
   ////////////////////////
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("http://localhost:3000/user")
       .then((response) => response.json())
       .then((users) => {
         const updatedUsers = users.map((user) => ({

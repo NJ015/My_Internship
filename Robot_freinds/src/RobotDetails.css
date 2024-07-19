@@ -28,18 +28,48 @@
     margin-bottom: 5px;
   }
   
-  .robotDetails .backLink {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #0ccac4;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background-color 0.3s;
+  .icons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .backLink {
+    margin: 5px;
+    color: #026272;
+    /* float: left; */
+    font-size: 45px;
   }
   
-  .robotDetails .backLink:hover {
-    background-color: #09a3a0;
+  .backLink:hover {
+    color: #09a3a09f;
   }
   
+  .editbutton{
+    padding: 0px;
+    margin: 5px;
+    color: #05365c;
+    /* float: right; */
+    font-size: 33px;
+    border: 0px;
+  }
+
+  .editbutton:hover {
+    color: #05365cad;
+  }
+
+
+
+  
+/*   
+  .icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+  } */
+
+
+
+  .updatebuttons{
+    display: flex;
+    gap: 5rem;
+  }

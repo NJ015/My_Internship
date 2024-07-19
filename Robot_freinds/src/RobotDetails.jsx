@@ -3,7 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import "./RobotDetails.css";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-// import Edit from "./EditUser";
+import Edit from "./EditUser";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faPen } from "@fortawesome/free-solid-svg-icons";
 
 export default function RobotDetails() {
   const dispatch = useDispatch();
@@ -14,12 +16,12 @@ export default function RobotDetails() {
   // const { username } = useParams();
   // const users = useSelector((state) => state.users.users);
   // const user = users.find((u) => u.username === username);
-  // const [isEditFormOpen, setIsEditFormOpen] = useState(false);
+  const [isEditFormOpen, setIsEditFormOpen] = useState(false);
 
   ////////////////////////
   const [user, setUser2] = useState({});
   useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+    fetch(`http://localhost:3000/user/${id}`)
       .then((response) => response.json())
       .then((u) => {
         const updatedUsers = {
@@ -30,7 +32,6 @@ export default function RobotDetails() {
         setUser2(updatedUsers);
       });
   }, [dispatch]);
-
 
   if (!user) {
     return (
@@ -45,6 +46,14 @@ export default function RobotDetails() {
 
   return (
     <div className="robotDetails">
+      <div className="icons">
+        <Link to="/" className="backLink">
+        <FontAwesomeIcon icon={faAngleLeft} className="icon backIcon" />
+        </Link>
+        <button className="editbutton" onClick={() => setIsEditFormOpen(true)}>
+        <FontAwesomeIcon icon={faPen} className="icon editIcon" />
+        </button>
+      </div>
       <img src={user.pic} alt={`${user.name}'s picture`} />
       <h2>{user.name}</h2>
       <p>
@@ -54,8 +63,7 @@ export default function RobotDetails() {
         <strong>Email:</strong> {user.email}
       </p>
       <p>
-        <strong>Address:</strong> {user.address?.street}, {user.address?.suite},{" "}
-        {user.address?.city}, {user.address?.zipcode}
+        <strong>Address:</strong> {user.address?.street}, {user.address?.city}
       </p>
       <p>
         <strong>Geo:</strong> Lat: {user.address?.geo?.lat}, Lng:{" "}
@@ -76,13 +84,13 @@ export default function RobotDetails() {
       <p>
         <strong>BS:</strong> {user.company?.bs}
       </p>
-      <Link to="/" className="backLink">
+      {/* <Link to="/" className="backLink">
         Back
       </Link>
-      {/* <button onClick={() => setIsEditFormOpen(true)}>Edit</button>
+      <button className="editbutton" onClick={() => setIsEditFormOpen(true)}>Edit</button> */}
       {isEditFormOpen && (
         <Edit user={user} onClose={() => setIsEditFormOpen(false)} />
-      )} */}
+      )}
     </div>
   );
 }
