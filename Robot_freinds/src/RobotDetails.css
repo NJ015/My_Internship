@@ -59,7 +59,6 @@
 
 
 
-  
 /*   
   .icon {
     font-size: 24px;
@@ -67,6 +66,28 @@
     color: #000;
   } */
 
+
+
+
+
+
+  .deleteicon{
+    color: red;
+    border: 0px;
+    background: none;
+    font-size: 33px;
+    margin: 5px;
+    padding: 0px;
+  }
+
+  /* .deleteicon:hover{
+    
+  } */
+
+  /* button:hover{
+    background: none;
+    border: 0px !important;
+  } */
 
 
   .updatebuttons{

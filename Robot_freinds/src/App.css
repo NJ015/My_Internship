@@ -62,7 +62,7 @@
   text-align: left;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.5s;
-  max-height: 280px;
+  max-height: 400px;
   max-width: 200px;
   background-color: #9eebcf;
 }

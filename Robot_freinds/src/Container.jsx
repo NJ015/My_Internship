@@ -46,7 +46,7 @@ export default function Container() {
       {isOpen && <AddUserForm addUser={handleAddUser} />}
       <div className="robotList">
         {filteredUsers.map((user) => (
-          <Robot key={user.id} user={user} />
+          <Robot key={user._id} user={user} />
         ))}
       </div>
     </div>

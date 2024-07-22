@@ -51,7 +51,7 @@ export const update = async (req, res) => {
 
 export const destroy = async (req, res) => {
     try {
-        const data = await UserModel.findByIdAndRemove(req.params.id);
+        const data = await UserModel.findByIdAndDelete(req.params.id);
         if (!data) {
             return res.status(404).send({ message: "User not found." });
         }

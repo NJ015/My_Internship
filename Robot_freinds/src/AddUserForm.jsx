@@ -65,16 +65,14 @@ export default function AddUserForm({ addUser }) {
             .matches(/^[a-zA-Z]+$/, "City can only contain letters")
             .required("Required"),
           geo: Yup.object({
-            lat: Yup.string()
-              .matches(
-                /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/,
-                "Invalid latitude"
-              ),
-            lng: Yup.string()
-              .matches(
-                /^[-+]?((1[0-7]\d)|(0\d{0,1}))(\.\d+)?|180(\.0+)?$/,
-                "Invalid longitude"
-              ),
+            lat: Yup.string().matches(
+              /^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/,
+              "Invalid latitude"
+            ),
+            lng: Yup.string().matches(
+              /^[-+]?((1[0-7]\d)|(0\d{0,1}))(\.\d+)?|180(\.0+)?$/,
+              "Invalid longitude"
+            ),
           }),
         }),
         website: Yup.string().url("Invalid URL"),
@@ -86,7 +84,6 @@ export default function AddUserForm({ addUser }) {
       })}
       onSubmit={(values, { setSubmitting }) => {
         const newUser = {
-          id: users.length + 1,
           name: values.name,
           username: values.username,
           email: values.email,

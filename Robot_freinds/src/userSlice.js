@@ -63,7 +63,7 @@ const userSlice = createSlice({
       state.users = action.payload;
     },
     editUser: (state) => {
-      const i = state.users.findIndex((user) => user.id === action.payload.id)
+      const i = state.users.findIndex((user) => user._id === action.payload._id)
       if (i !== -1) {
         state.users[i] = action.payload
       }
