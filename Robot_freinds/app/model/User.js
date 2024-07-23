@@ -1,10 +1,14 @@
 import mongoose from 'mongoose';
 
 const addressSchema = new mongoose.Schema({
-    street: String,
-    suite: String,
-    city: String,
-    zipcode: String,
+    street: {
+        type: String,
+        required: true,
+    },
+    city: {
+        type: String,
+        required: true,
+    },
     geo: {
         lat: String,
         lng: String
@@ -31,7 +35,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    address: { type: addressSchema, required: true },
+    address: {
+        type: addressSchema,
+        required: true,
+    },
     phone: {
         type: String,
         required: true
