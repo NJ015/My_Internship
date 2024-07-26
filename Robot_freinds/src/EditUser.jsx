@@ -1,17 +1,30 @@
 import React from "react";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
   return (
-    <div className="txtin">
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <input className="text-input" {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </div>
+    // <div className="txtin">
+    //   <label htmlFor={props.id || props.name}>{label}</label>
+    //   <input className="text-input" {...field} {...props} />
+    //   {meta.touched && meta.error ? (
+    //     <div className="error">{meta.error}</div>
+    //   ) : null}
+    // </div>
+    <Box mb={2}>
+      <TextField
+        fullWidth
+        label={label}
+        {...field}
+        {...props}
+        error={meta.touched && Boolean(meta.error)}
+        helperText={meta.touched && meta.error}
+      />
+    </Box>
   );
 };
 
@@ -192,12 +205,20 @@ const EditUser = ({ user, onClose }) => {
               type="text"
               placeholder="BS"
             />
-            <div className="updatebuttons">
+            {/* <div className="updatebuttons">
               <button type="button" onClick={onClose}>
                 Cancel
               </button>
               <button type="submit">Update User</button>
-            </div>
+            </div> */}
+            <Box mt={2} display="flex" justifyContent="space-between" gap="20px">
+              <Button variant="contained" color="secondary" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" color="primary">
+                Update User
+              </Button>
+            </Box>
           </Form>
         </div>
       </div>

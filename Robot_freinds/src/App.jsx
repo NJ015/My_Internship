@@ -5,6 +5,7 @@ import RobotDetails from "./RobotDetails";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
+import ErrorPage from "./error-page";
 
 export default function App() {
   // const [users, setUsers] = useState([
@@ -59,14 +60,12 @@ export default function App() {
           <Container />
         </div>
       ),
-      // loader: rootLoader,
-      // action: rootAction,
+      errorElement: <ErrorPage />,
     },
     {
       path: "robotDetails/:id",
       element: <RobotDetails />,
-      // loader: contactLoader,
-      // action: contactAction,
+      errorElement: <ErrorPage />,
     },
   ]);
 

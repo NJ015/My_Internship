@@ -4,6 +4,7 @@ import Robot from "./Robot";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, setUsers, openForm, closeForm } from "./userSlice";
+import { Button } from "@mui/material";
 
 export default function Container() {
   const dispatch = useDispatch();
@@ -39,9 +40,9 @@ export default function Container() {
     <div className="container">
       <div className="flexRow">
         <SearchBar filterText={filterText} onFilterTextChange={setFilterText} />
-        <button onClick={() => dispatch(openForm())} className="addUserButton">
+        <Button variant="contained" onClick={() => dispatch(openForm())} className="addUserButton">
           Add Robot
-        </button>
+        </Button>
       </div>
       {isOpen && <AddUserForm addUser={handleAddUser} />}
       <div className="robotList">

@@ -1,18 +1,33 @@
+import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeForm } from "./userSlice";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+// import CloseIcon from "@mui/icons-material/Close";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
   return (
-    <div className="txtin">
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <input className="text-input" {...field} {...props} />
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
-    </div>
+    // <div className="txtin">
+    //   <label htmlFor={props.id || props.name}>{label}</label>
+    //   <input className="text-input" {...field} {...props} />
+    //   {meta.touched && meta.error ? (
+    //     <div className="error">{meta.error}</div>
+    //   ) : null}
+    // </div>
+
+    <TextField
+      fullWidth
+      label={label}
+      {...field}
+      {...props}
+      error={meta.touched && Boolean(meta.error)}
+      helperText={meta.touched && meta.error}
+      q
+    />
   );
 };
 
@@ -198,7 +213,11 @@ export default function AddUserForm({ addUser }) {
               type="text"
               placeholder="BS"
             />
-            <button type="submit">Add User</button>
+            {/* <button type="submit">Add User</button> */}
+
+            <Button variant="contained" type="submit">
+              Add User
+            </Button>
           </Form>
         </div>
       </div>
