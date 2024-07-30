@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import { closeForm } from "./userSlice";
+import React from "react";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
 
@@ -16,30 +15,27 @@ const MyTextInput = ({ label, ...props }) => {
   );
 };
 
-export default function AddUserForm({ addUser }) {
-  const users = useSelector((state) => state.users.users);
-  const dispatch = useDispatch();
-
+const EditUser = ({ user, onClose }) => {
   return (
     <Formik
       initialValues={{
-        name: "",
-        username: "",
-        email: "",
+        name: user.name || "",
+        username: user.username || "",
+        email: user.email || "",
         address: {
-          street: "",
-          city: "",
+          street: user.address?.street || "",
+          city: user.address?.city || "",
           geo: {
-            lat: "",
-            lng: "",
+            lat: user.address?.geo?.lat || "",
+            lng: user.address?.geo?.lng || "",
           },
         },
-        phone: "",
-        website: "",
+        phone: user.phone || "",
+        website: user.website || "",
         company: {
-          name: "",
-          catchPhrase: "",
-          bs: "",
+          name: user.company?.name || "",
+          catchPhrase: user.company?.catchPhrase || "",
+          bs: user.company?.bs || "",
         },
       }}
       validationSchema={Yup.object({
@@ -96,7 +92,7 @@ export default function AddUserForm({ addUser }) {
             },
           },
           phone: values.phone,
-          website: values.website || "https://NotAvailable.com",
+          website: values.website || "N/A",
           company: {
             name: values.company.name || "N/A",
             catchPhrase: values.company.catchPhrase || "N/A",
@@ -104,26 +100,24 @@ export default function AddUserForm({ addUser }) {
           },
           pic: `https://robohash.org/${values.username}`,
         };
-
-        fetch("http://localhost:3000/user", {
-          method: "POST",
+        fetch(`http://localhost:3000/user/${user._id}`, {
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newUser),
-        }).catch((error) => {
-          console.error("Error adding user:", error);
-        });
-        addUser(newUser);
-        dispatch(closeForm());
+        })
+          .then(() => {
+            onClose();
+          })
+          .catch((error) => {
+            console.error("Error updating user:", error);
+          });
         setSubmitting(false);
       }}
     >
       <div className="Form">
         <div className="FormContent">
-          <span className="closeButton" onClick={() => dispatch(closeForm())}>
-            X
-          </span>
           <h2>Add New User</h2>
           <Form className="addUserForm">
             <MyTextInput
@@ -198,10 +192,16 @@ export default function AddUserForm({ addUser }) {
               type="text"
               placeholder="BS"
             />
-            <button type="submit">Add User</button>
+            <div className="updatebuttons">
+              <button type="button" onClick={onClose}>
+                Cancel
+              </button>
+              <button type="submit">Update User</button>
+            </div>
           </Form>
         </div>
       </div>
     </Formik>
   );
-}
+};
+export default EditUser;

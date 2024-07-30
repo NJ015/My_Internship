@@ -53,16 +53,17 @@ export default function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: 
-      <div className="app">
-        <h1 className="title">RoboFriends</h1>
-        <Container />
-      </div>,
+      element: (
+        <div className="app">
+          <h1 className="title">RoboFriends</h1>
+          <Container />
+        </div>
+      ),
       // loader: rootLoader,
       // action: rootAction,
     },
     {
-      path: "robotDetails/:username",
+      path: "robotDetails/:id",
       element: <RobotDetails />,
       // loader: contactLoader,
       // action: contactAction,
@@ -72,6 +73,6 @@ export default function App() {
   return (
     <Provider store={store}>
       <RouterProvider router={router} />
-      </Provider>
+    </Provider>
   );
 }

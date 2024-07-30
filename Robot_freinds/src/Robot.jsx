@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function Robot({ user }) {
   return (
-    <Link to={`robotDetails/${user.username}`}>
+    <Link to={`robotDetails/${user._id}`}>
       <div className="robot">
         <img
           src={user.pic}
