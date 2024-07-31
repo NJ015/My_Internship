@@ -1,12 +1,9 @@
-import * as React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { closeForm } from "./userSlice";
+import React from "react";
 import { Formik, Form, useField } from "formik";
 import * as Yup from "yup";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-// import CloseIcon from "@mui/icons-material/Close";
+import { Button } from "@mui/material";
 
 const MyTextInput = ({ label, ...props }) => {
   const [field, meta, helpers] = useField(props);
@@ -18,43 +15,40 @@ const MyTextInput = ({ label, ...props }) => {
     //     <div className="error">{meta.error}</div>
     //   ) : null}
     // </div>
-
-    <TextField
-      fullWidth
-      label={label}
-      {...field}
-      {...props}
-      error={meta.touched && Boolean(meta.error)}
-      helperText={meta.touched && meta.error}
-      q
-    />
+    <Box mb={2}>
+      <TextField
+        fullWidth
+        label={label}
+        {...field}
+        {...props}
+        error={meta.touched && Boolean(meta.error)}
+        helperText={meta.touched && meta.error}
+      />
+    </Box>
   );
 };
 
-export default function AddUserForm({ addUser }) {
-  const users = useSelector((state) => state.users.users);
-  const dispatch = useDispatch();
-
+const EditUser = ({ user, onClose }) => {
   return (
     <Formik
       initialValues={{
-        name: "",
-        username: "",
-        email: "",
+        name: user.name || "",
+        username: user.username || "",
+        email: user.email || "",
         address: {
-          street: "",
-          city: "",
+          street: user.address?.street || "",
+          city: user.address?.city || "",
           geo: {
-            lat: "",
-            lng: "",
+            lat: user.address?.geo?.lat || "",
+            lng: user.address?.geo?.lng || "",
           },
         },
-        phone: "",
-        website: "",
+        phone: user.phone || "",
+        website: user.website || "",
         company: {
-          name: "",
-          catchPhrase: "",
-          bs: "",
+          name: user.company?.name || "",
+          catchPhrase: user.company?.catchPhrase || "",
+          bs: user.company?.bs || "",
         },
       }}
       validationSchema={Yup.object({
@@ -111,7 +105,7 @@ export default function AddUserForm({ addUser }) {
             },
           },
           phone: values.phone,
-          website: values.website || "https://NotAvailable.com",
+          website: values.website || "N/A",
           company: {
             name: values.company.name || "N/A",
             catchPhrase: values.company.catchPhrase || "N/A",
@@ -119,26 +113,24 @@ export default function AddUserForm({ addUser }) {
           },
           pic: `https://robohash.org/${values.username}`,
         };
-
-        fetch("http://localhost:3000/user", {
-          method: "POST",
+        fetch(`http://localhost:3000/user/${user._id}`, {
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(newUser),
-        }).catch((error) => {
-          console.error("Error adding user:", error);
-        });
-        addUser(newUser);
-        dispatch(closeForm());
+        })
+          .then(() => {
+            onClose();
+          })
+          .catch((error) => {
+            console.error("Error updating user:", error);
+          });
         setSubmitting(false);
       }}
     >
       <div className="Form">
         <div className="FormContent">
-          <span className="closeButton" onClick={() => dispatch(closeForm())}>
-            X
-          </span>
           <h2>Add New User</h2>
           <Form className="addUserForm">
             <MyTextInput
@@ -213,14 +205,24 @@ export default function AddUserForm({ addUser }) {
               type="text"
               placeholder="BS"
             />
-            {/* <button type="submit">Add User</button> */}
-
-            <Button variant="contained" type="submit">
-              Add User
-            </Button>
+            {/* <div className="updatebuttons">
+              <button type="button" onClick={onClose}>
+                Cancel
+              </button>
+              <button type="submit">Update User</button>
+            </div> */}
+            <Box mt={2} display="flex" justifyContent="space-between" gap="20px">
+              <Button variant="contained" color="secondary" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained" color="primary">
+                Update User
+              </Button>
+            </Box>
           </Form>
         </div>
       </div>
     </Formik>
   );
-}
+};
+export default EditUser;

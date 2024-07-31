@@ -16,26 +16,28 @@
   margin-right: 20px;
 }
 
-.searchBar {
+/* .searchBar {
   margin-bottom: 20px;
-}
+} */
 
 .searchInput {
   padding: 10px;
   font-size: 1em;
-  background-color: #cdecff;
+  background-color: #b0f0d9;
   border-radius: 8px;
 }
 
 .addUserButton {
   padding: 10px 20px;
   font-size: 1em;
-  background-color: #0ccac4;
+  /* background-color: #0ccac4; */
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   margin-bottom: 20px;
+  background-color: #03587e !important;
+  box-shadow: 0px 6px 6px -4px rgba(0, 0, 0, 1.2);
 }
 
 .addUserButton:hover {
@@ -62,7 +64,7 @@
   text-align: left;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.5s;
-  max-height: 280px;
+  max-height: 400px;
   max-width: 200px;
   background-color: #9eebcf;
 }
@@ -83,12 +85,13 @@
   text-align: center;
 }
 
-.flexRow{
+.flexRow {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 20px;
 }
 
 
@@ -109,10 +112,10 @@
 
 .FormContent {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 25%;
   max-width: 500px;
   border-radius: 10px;
 }
@@ -135,21 +138,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 5px;
 }
 
+.addUserForm label {
+  display: block;
+  text-align: left;
+}
+
+
 .addUserForm input {
-  margin: 5px;
-  padding: 10px;
+  margin: 10px;
+  padding: 5px;
   font-size: 1em;
-  border-radius: 8px;
+  border-radius: 3px;
   border: 1px solid #ccc;
-  width: 80%;
+  /* width: 90%; */
+
 }
 
 .addUserForm button {
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   font-size: 1em;
-  background-color: #0ccac4;
+  background-color: #048684;
   color: white;
   border: none;
   border-radius: 8px;
@@ -159,4 +170,29 @@
 
 .addUserForm button:hover {
   background-color: #09a3a0;
+}
+
+
+.error {
+  color: red;
+  font-size: 0.8rem;
+  margin-left: 5px;
+  padding-left: 10px;
+  text-align: left;
+  display: block;
+}
+
+
+.txtin {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+}
+
+label {
+  margin-left: 5px;
+  padding-left: 10px;
 }

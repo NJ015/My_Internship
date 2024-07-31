@@ -1,5 +1,3 @@
-
-
 export default function SearchBar({ filterText, onFilterTextChange }) {
     return (
       <form className="searchBar">
